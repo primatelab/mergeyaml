@@ -1,35 +1,32 @@
 #!/usr/bin/env bash
 
-yaml1="$1"
-yaml2="$2"
-
 unindent () {
   inputyaml="$1"
-  tmpdir=$(mktemp -d /tmp/XXXXXX)
-  sed 's/^/z;/g;' "$inputyaml" > "$tmpdir/yaml1"
+  ltmpdir=$(mktemp -d /tmp/XXXXXX)
+  sed 's/^/z;/g;' "$inputyaml" > "$ltmpdir/yaml1"
   # unindent sections
-  while (grep -E ';  ' "$tmpdir/yaml1" &>/dev/null); do
-    cat "$tmpdir/yaml1" | while read line; do
+  while (grep -E ';  ' "$ltmpdir/yaml1" &>/dev/null); do
+    cat "$ltmpdir/yaml1" | while read line; do
       if (echo "$line" | grep -E ";[A-Za-z0-9\-_]*:" &>/dev/null); then
-        echo "$line" >> "$tmpdir/yaml2"
+        echo "$line" >> "$ltmpdir/yaml2"
         pref=$(echo "$line" | grep -Eo ";[A-Za-z0-9\-_]*:" | sed 's/^;//; s/:$//')
       else
-        echo "${line/;  /;$pref;}"  >> "$tmpdir/yaml2"
+        echo "${line/;  /;$pref;}"  >> "$ltmpdir/yaml2"
       fi
     done
-    mv -f "$tmpdir/yaml2" "$tmpdir/yaml1"
+    mv -f "$ltmpdir/yaml2" "$ltmpdir/yaml1"
   done
   # unindent lists
-  cat "$tmpdir/yaml1" | while read line; do
+  cat "$ltmpdir/yaml1" | while read line; do
     if (echo "$line" | grep -E ";[A-Za-z0-9\-_]*:" &>/dev/null); then
-      echo "$line" >> "$tmpdir/yaml2"
+      echo "$line" >> "$ltmpdir/yaml2"
       pref=$(echo "$line" | grep -Eo ";[A-Za-z0-9\-_]*:" | sed 's/^;//; s/:$//')
     else
-      echo "${line/;-/;$pref;-}" >> "$tmpdir/yaml2"
+      echo "${line/;-/;$pref;-}" >> "$ltmpdir/yaml2"
     fi
   done
-  cat "$tmpdir/yaml2"
-  rm -rf $tmpdir
+  cat "$ltmpdir/yaml2"
+  rm -rf $ltmpdir
 }
 
 reindent () {
@@ -37,12 +34,13 @@ reindent () {
   sed 's/[a-zA-Z0-9\-_]*;/  /g; s/^  //; s/  -/-/' $inputyaml
 }
 
-tmpdir2=$(mktemp -d /tmp/XXXXXX)
+tmpdir=$(mktemp -d /tmp/XXXXXX)
 
-unindent $yaml1 >> $tmpdir2/file1
-unindent $yaml2 >> $tmpdir2/file1
+for item in $@; do
+  unindent $item >> $tmpdir/file1
+done
 
-cat $tmpdir2/file1 | LC_COLLATE=C sort | uniq >> $tmpdir2/file2
+cat $tmpdir/file1 | LC_COLLATE=C sort | uniq >> $tmpdir/file2
 
-reindent $tmpdir2/file2
-rm -rf $tmpdir2
+reindent $tmpdir/file2
+rm -rf $tmpdir
