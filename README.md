@@ -1,11 +1,11 @@
 # mergeyaml
-Merge two YAML files, producing a new, syntactically valid YAML file. 
+Merge YAML files, producing a new, syntactically valid YAML file. 
 
 Written in bash. Just bash. No python, no extra packages. Nothing but bash.
 
 I know, right?
 
-**Usage:** `mergeyaml.sh file1.yml file2.yml`
+**Usage:** `mergeyaml.sh file1.yml [file2.yml file3.yml]`
 
 **Note**: This script doesn't detect duplicate keys. If two keys have the same value, it keeps one copy, but if they have different values it prints both. It also doesn't handle multi-line values. Yet.
 
