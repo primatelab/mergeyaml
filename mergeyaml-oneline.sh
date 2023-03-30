@@ -2,10 +2,10 @@
 
 # mergeyaml.sh has been minified and compressed for your convenience. It is now a "one-liner" you can use in your own scripts.
 
-echo 'H4sIAAAAAAACA91SyU7DMBC9z1cMxiINkjXAjVqtVFW9VeLCAVFolcROYpqlJGmRuvw7zi
-YqVH4AX8azvcXy9RX5JiPfK2PwRozfM/BteGAQDFw8gGpresQH6brS6QaFQqrSDb00x4VSK3RKWt
-JeUiQdZFwxHNugyWPwFZtE4yAqtN2coSMRna6HN2NSekfZNklciSqHwKv63hHbzUJ7CsOma0Ic6C
-DO7UhYD/SYTC4m4tUT+zvx+CZW77fD39BVrDP4WR236nwGkbV1ATK/iHnE3qokkljSkBM5Luik1D
-36IbQdJMkjeWJ4xhQaUHmmId2hCLti/0ZN4394F411cWIXrPcObalIURQhcg0niM//WceysOxWQy
-9Akn3TqKZd2kvDjyhIkINcWQjz9+8MkHu1Fm7oo078n8TKqS/W23y6mj7N55Pn2WiKZV5UtrbNzG
-c3u4a4Db1sA9+OTEEoNwMAAA==' | base64 -d | gzip -d | bash -s -- "$1" "$2"
+echo 'H4sIAAAAAAACA9VSTU/CQBC9z68Y141tTTajR9nQSAg3Ei8ejKikH9t2oR/YFkyg/He3hU
+KM+APcy2Tnzbw3bzLXV+TrnHyvSsCznR34Q8bvGQRDbmfLWmUrFCFSna3opXsOVCpEq6IP2kqKpY
+WM+8xlPKCQwVeiU4V2XCrTN0FLIrYFLXbjUqg2lK/T1JFhAYFXH5Hm0FUqL0TVQjpCWwVJYXDFmp
+6MydlIvHpieyce3sT8/Xbwk7NOVA6nNrcbKWIQGye/yIpLbE3vTBJJrGjAiSwHVFqpnnenDIIkeS
+z3Z4lIQ1jkCrINiggPyaO3A/BvvYrOqrjgtbdkUmWGooyQB7CHxHbwdERHjZlRNvq9uCSzwVgabR
+PJRERBgizkviHQfx9eVJS4QJ0jf2w35yFfuC7XtDxP1P6a6Xg+fppOR8+T4Riroqybda4/u9IUEu
+xCP7OGb1FV7oACAwAA' | base64 -d | gzip -d | bash -s -- $@
