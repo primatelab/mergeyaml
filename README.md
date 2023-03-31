@@ -13,27 +13,6 @@ I know, right?
 `file1.yml`:
 ```
 ---
-cachemanager:
-  host: 127.0.0.1
-  max_cache_size: 1GB
-  max_item_size: 0
-process_recycle_time: 86400
-server:
-  bind_address: 0.0.0.0
-  max_active_connections: 15
-  max_queued_connections: 30
-  tls:
-    cipher_suite: ECDH+AESGCM:ECDH+AES256:ECDH+AES128:!aNULL:!MD5:!DSS
-    context_options:
-    - NO_SSLv3
-    - NO_TLSv1
-    - NO_TLSv1_1
-  tls_enabled: true
-  tls_handshake_timeout: 3
-```
-`file2.yml`
-```
----
 server:
   tls:
     cert_file: /etc/app/ssl/app.pem
@@ -42,9 +21,38 @@ server:
     check_client_cert: true
   tls_enabled: true
 ```
-Result of `mergeyaml.sh file1.yml file2.yml`:
+`file2.yml`
 ```
 ---
+cachemanager:
+  host: 127.0.0.1
+process_recycle_time: 86400
+server:
+  bind_address: 0.0.0.0
+  tls:
+    context_options:
+    - NO_SSLv3
+    - NO_TLSv1
+    - NO_TLSv1_1
+  tls_enabled: true
+  tls_handshake_timeout: 3
+
+---
+cachemanager:
+  max_cache_size: 1GB
+  max_item_size: 0
+process_recycle_time: 86400
+server:
+  max_active_connections: 15
+  max_queued_connections: 30
+  tls:
+    cipher_suite: ECDH+AESGCM:ECDH+AES256:ECDH+AES128:!aNULL:!MD5:!DSS
+  tls_enabled: true
+  tls_handshake_timeout: 3
+```
+Result of `mergeyaml.sh file1.yml file2.yml`:
+```
+---  
 cachemanager:
   host: 127.0.0.1
   max_cache_size: 1GB
