@@ -3,7 +3,7 @@
 unindent () {
   inputyaml="$1"
   ltmpdir=$(mktemp -d /tmp/XXXXXX)
-  sed 's/^/z;/g;' "$inputyaml" > "$ltmpdir/yaml1"
+  sed 's/^---//g; s/^/z;/g;' "$inputyaml" > "$ltmpdir/yaml1"
   # unindent sections
   while (grep -E ';  ' "$ltmpdir/yaml1" &>/dev/null); do
     cat "$ltmpdir/yaml1" | while read line; do
@@ -39,7 +39,7 @@ tmpdir=$(mktemp -d /tmp/XXXXXX)
 for item in $@; do
   unindent $item >> $tmpdir/file1
 done
-
+echo -n '---' > $tmpdir/file2
 cat $tmpdir/file1 | LC_COLLATE=C sort | uniq >> $tmpdir/file2
 
 reindent $tmpdir/file2
